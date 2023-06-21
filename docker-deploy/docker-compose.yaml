@@ -17,7 +17,7 @@ services:
       - "8090:8090"
     networks:
       cosd_net:
-        ipv4_address: 172.30.1.16
+        ipv4_address: 172.31.1.16
 
   application2:
     image: $APPLICATION_IMAGE
@@ -36,11 +36,11 @@ services:
       - "8091:8090"
     networks:
       cosd_net:
-        ipv4_address: 172.30.1.17
+        ipv4_address: 172.31.1.17
 
 networks:
   cosd_net:
     driver: bridge
     ipam:
       config:
-        - subnet: 172.30.0.0/16
+        - subnet: 172.31.0.0/16
