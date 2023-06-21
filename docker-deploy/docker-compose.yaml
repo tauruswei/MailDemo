@@ -39,7 +39,7 @@ services:
         ipv4_address: 172.31.1.17
 
 networks:
-  cosd_net:
+  mail_net:
     driver: bridge
     ipam:
       config:
