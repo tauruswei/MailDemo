@@ -1,0 +1,46 @@
+version: '3'
+services:
+  application1:
+    image: $APPLICATION_IMAGE
+    container_name: cosd-application1
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+    entrypoint:
+      - "/bin/sh"
+      - "-c"
+      - "java -jar -Dfile.encoding=UTF-8 /applications/application.jar --spring.profiles.active=prod --server.port=8090"
+    volumes:
+#      - ./config/application-prod.yml:/applications/application.yml
+      - ./data/:/data/
+    ports:
+      - "8090:8090"
+    networks:
+      cosd_net:
+        ipv4_address: 172.30.1.16
+
+  application2:
+    image: $APPLICATION_IMAGE
+    container_name: cosd-application2
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+    entrypoint:
+      - "/bin/sh"
+      - "-c"
+      - "java -jar -Dfile.encoding=UTF-8 /applications/application.jar --spring.profiles.active=dev --server.port=8090"
+    volumes:
+      #      - ./config/application-prod.yml:/applications/application.yml
+      - ./data/:/data/
+    ports:
+      - "8091:8090"
+    networks:
+      cosd_net:
+        ipv4_address: 172.30.1.17
+
+networks:
+  cosd_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.30.0.0/16
